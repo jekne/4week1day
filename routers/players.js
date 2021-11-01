@@ -95,4 +95,19 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
   }
 });
 
+// GET ALL TEAMS
+router.get("/", async (req, res, next) => {
+  try {
+    const players = await Player.findAll();
+
+    if (players.length > 0) {
+      res.status(200).send(players);
+    } else {
+      res.status(404).send("No teams found");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
